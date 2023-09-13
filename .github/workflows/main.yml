@@ -13,6 +13,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     outputs:
       imageid: ${{ steps.docker_push.outputs.imageid }}
       digest: ${{ steps.docker_push.outputs.digest }}
@@ -26,9 +29,10 @@ jobs:
         name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v1'
         with:
-          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+          workload_identity_provider: "projects/638457069405/locations/global/workloadIdentityPools/my-pool/providers/my-provider"
+          service_account: 'github@ervin-cloud-run-demo2.iam.gserviceaccount.com'
           token_format: access_token
-          access_token_lifetime: '300s'
+          access_token_lifetime: '600s'
       - uses: 'docker/login-action@v2'
         with: 
           registry: us-central1-docker.pkg.dev
