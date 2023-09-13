@@ -42,8 +42,8 @@ jobs:
       - name: Build and export to Docker
         id: docker_push
         uses: docker/build-push-action@v5
-        env:
-          SOURCE_DATE_EPOCH: 0
+        #env:
+        #  SOURCE_DATE_EPOCH: 0
         with:
           context: .
           # load: true
@@ -54,20 +54,20 @@ jobs:
           cache-from: 'type=gha'
           build-args: |
             SOURCE_DATE_EPOCH=0
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ env.TEST_TAG }}
-          format: 'spdx-json'
-          output: '/github/workspace/results.spdx'
-          exit-code: '0'
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v1'
-      - run: |
-          # upload sbom
-          gcloud artifacts sbom load \
-            --source results.spdx \
-            --uri ${{ env.TEST_TAG }}  
+      #- name: Run Trivy vulnerability scanner
+      #  uses: aquasecurity/trivy-action@master
+      #  with:
+      #    image-ref: ${{ env.TEST_TAG }}
+      #    format: 'spdx-json'
+      #    output: '/github/workspace/results.spdx'
+      #    exit-code: '0'
+      #- name: 'Set up Cloud SDK'
+      #  uses: 'google-github-actions/setup-gcloud@v1'
+      #- run: |
+      #    # upload sbom
+      #    gcloud artifacts sbom load \
+      #      --source results.spdx \
+      #      --uri ${{ env.TEST_TAG }}  
   provenance:
     needs: [build]
     permissions:
