@@ -4,8 +4,8 @@ on:
   push:
 
 env:
-  TEST_TAG: user/app:test
-  LATEST_TAG: user/app:latest
+  TEST_TAG: us-central1-docker.pkg.dev/ervin-cloud-run-demo2/docker-demo/hello:test
+  LATEST_TAG: us-central1-docker.pkg.dev/ervin-cloud-run-demo2/docker-demo/hello:latest
 
 jobs:
   docker:
@@ -32,4 +32,8 @@ jobs:
           context: .
           load: true
           file: placeholder.dockerfile
-          tags: ${{ env.TEST_TAG }}  
+          tags: ${{ env.TEST_TAG }}
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.TEST_TAG }}
