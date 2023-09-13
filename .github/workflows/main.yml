@@ -37,3 +37,6 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: ${{ env.TEST_TAG }}
+          format: 'sarif'
+          output: '/github/workspace/results.sarif'
+          exit-code: '0'
