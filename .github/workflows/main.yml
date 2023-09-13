@@ -36,8 +36,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          # load: true
-          push: true
+          load: true
+          # push: true
           file: placeholder.dockerfile
           tags: ${{ env.TEST_TAG }}
           # cache-to: 'type=gha,mode=max'
@@ -52,7 +52,8 @@ jobs:
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v1'
       - run: |
-          # upload sbom
+          # upload image and sbom
+          docker push ${{ env.TEST_TAG }}
           gcloud artifacts sbom load \
             --source results.spdx \
             --uri ${{ env.TEST_TAG }}  
