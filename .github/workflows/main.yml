@@ -47,3 +47,8 @@ jobs:
           exit-code: '0'
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v1'
+      - run: |
+          # upload sbom
+          gcloud artifacts sbom load /
+            --source results.sarif /
+            --uri ${{ env.TEST_TAG }}  
