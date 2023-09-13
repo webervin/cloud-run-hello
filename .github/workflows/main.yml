@@ -33,6 +33,8 @@ jobs:
           load: true
           file: placeholder.dockerfile
           tags: ${{ env.TEST_TAG }}
+          cache-to: 'type=gha,mode=max'
+          cache-from: 'type=gha'
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
