@@ -7,6 +7,9 @@ env:
   TEST_TAG: us-central1-docker.pkg.dev/ervin-cloud-run-demo2/docker-demo/hello:test
   LATEST_TAG: us-central1-docker.pkg.dev/ervin-cloud-run-demo2/docker-demo/hello:latest
 
+concurrency:
+  group: main
+  cancel-in-progress: true  
 jobs:
   docker:
     runs-on: ubuntu-latest
