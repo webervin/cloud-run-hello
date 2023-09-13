@@ -75,7 +75,7 @@ jobs:
       id-token: write # for creating OIDC tokens for signing.
       packages: write # for uploading attestations.
     # if: startsWith(github.ref, 'refs/tags/')
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v1.9.0
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@main #v1.9.0
     with:
       image: us-central1-docker.pkg.dev/ervin-cloud-run-demo2/docker-demo/hello
       digest: ${{ needs.build.outputs.digest }}
