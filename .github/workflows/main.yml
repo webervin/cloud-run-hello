@@ -46,16 +46,14 @@ jobs:
           SOURCE_DATE_EPOCH: 0
         with:
           context: .
-          load: true
-          # push: true
+          # load: true
+          push: true
           file: placeholder.dockerfile
           tags: ${{ env.TEST_TAG }}
           cache-to: 'type=gha,mode=max'
           cache-from: 'type=gha'
           build-args: |
             SOURCE_DATE_EPOCH=0
-      - run: |
-          docker push ${{ env.TEST_TAG }}
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
@@ -84,4 +82,4 @@ jobs:
       gcp-workload-identity-provider: "projects/638457069405/locations/global/workloadIdentityPools/my-pool/providers/my-provider"
       gcp-service-account: 'github@ervin-cloud-run-demo2.iam.gserviceaccount.com'
       private-repository: true
-      continue-on-error: true
+      # continue-on-error: true
