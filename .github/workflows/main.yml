@@ -42,3 +42,5 @@ jobs:
           format: 'sarif'
           output: '/github/workspace/results.sarif'
           exit-code: '0'
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
